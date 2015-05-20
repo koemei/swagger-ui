@@ -2,13 +2,12 @@
 <html>
 <head>
   <title>Swagger UI</title>
-  <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
   <link href='css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
   <link href='css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
   <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
   <link href='css/reset.css' media='print' rel='stylesheet' type='text/css'/>
   <link href='css/print.css' media='print' rel='stylesheet' type='text/css'/>
+  <link href='css/koemei.css' rel='stylesheet' type='text/css'/>
   <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
   <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
   <script src='lib/jquery.wiggle.min.js' type='text/javascript'></script>
@@ -27,7 +26,9 @@
       if (url && url.length > 1) {
         url = decodeURIComponent(url[1]);
       } else {
-        url = "http://petstore.swagger.io/v2/swagger.json";
+        url = "https://api.koemei.com/api-specs/v1.json";
+        // test locally
+        // url = "http://localhost:3000/api-specs/v1.json";
       }
       window.swaggerUi = new SwaggerUi({
         url: url,
@@ -51,15 +52,15 @@
         onFailure: function(data) {
           log("Unable to Load SwaggerUI");
         },
-        docExpansion: "none",
+        docExpansion: "list",
         apisSorter: "alpha"
       });
 
       function addApiKeyAuthorization(){
         var key = encodeURIComponent($('#input_apiKey')[0].value);
         if(key && key.trim() != "") {
-            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("api_key", key, "query");
-            window.swaggerUi.api.clientAuthorizations.add("api_key", apiKeyAuth);
+            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("apiKey", key, "query");
+            window.swaggerUi.api.clientAuthorizations.add("apiKey", apiKeyAuth);
             log("added key " + key);
         }
       }
@@ -67,10 +68,9 @@
       $('#input_apiKey').change(addApiKeyAuthorization);
 
       // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
-      /*
-        var apiKey = "myApiKeyXXXX123456789";
-        $('#input_apiKey').val(apiKey);
-      */
+      // apiKey for demo@koemei.com account
+      var apiKey = "4e4a984ad1aa496d89e53f18584de114";
+      $('#input_apiKey').val(apiKey);
 
       window.swaggerUi.load();
 
@@ -86,16 +86,15 @@
 <body class="swagger-section">
 <div id='header'>
   <div class="swagger-ui-wrap">
-    <a id="logo" href="http://swagger.io">swagger</a>
     <form id='api_selector'>
-      <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
-      <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
-      <div class='input'><a id="explore" href="#">Explore</a></div>
+      <input hidden placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/>
+      <div class='input'><input placeholder="Your apiKey" id="input_apiKey" name="apiKey" type="text"/></div>
+      <div class='input'><a id="explore" href="#">Apply my apiKey</a></div>
     </form>
   </div>
 </div>
 
-<div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
 <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 </body>
 </html>
+

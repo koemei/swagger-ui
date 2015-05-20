@@ -1,0 +1,55 @@
+.swagger-section .swagger-ui-wrap a {
+  color: #41b1e5;
+}
+.swagger-section .swagger-ui-wrap a:hover {
+  text-decoration: none;
+}
+.swagger-section #header {
+  padding: 0;
+  background-color: white;
+  height: 30px;
+}
+.swagger-section #header form#api_selector {
+  margin-top: 18px;
+}
+.swagger-section #header form#api_selector .input {
+  float: none;
+  margin: 0 0 10px 0;
+}
+.swagger-section #header form#api_selector .input input#input_apiKey {
+  line-height: 1.2em;
+  border: none;
+  border-bottom: 1px solid #e6e6e6;
+  height: 45px;
+  font-size: 18px;
+  padding: 0 20px;
+  width: 320px;
+  outline: none;
+}
+.swagger-section #header form#api_selector .input input#input_apiKey:focus {
+  border-bottom: 1px solid #311a18;
+}
+.swagger-section #header form#api_selector .input a#explore {
+  background: #3a9fce;
+  color: white;
+  font-size: 16px;
+  margin-bottom: 10px;
+  padding: 14px;
+  font-weight: normal;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  line-height: 1;
+  letter-spacing: 1.5px;
+  text-align: center;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.swagger-section #header form#api_selector .input a#explore:hover {
+  background-color: #4ea9d3;
+}
