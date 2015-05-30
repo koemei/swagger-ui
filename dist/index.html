@@ -33,6 +33,7 @@
       window.swaggerUi = new SwaggerUi({
         url: url,
         dom_id: "swagger-ui-container",
+        validatorUrl: null,
         supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
         onComplete: function(swaggerApi, swaggerUi){
           if(typeof initOAuth == "function") {
@@ -58,6 +59,15 @@
 
       function addApiKeyAuthorization(){
         var key = encodeURIComponent($('#input_apiKey')[0].value);
+        // pass the key via url parameter "apiKey=123":
+        var apiKey = window.location.search.match(/apiKey=([^&]+)/);
+        if (apiKey && apiKey.length > 1) {
+          key = apiKey[1];
+          $('#input_apiKey').val(key);
+        } else {
+          $('#header').show();
+        }
+
         if(key && key.trim() != "") {
             var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("apiKey", key, "query");
             window.swaggerUi.api.clientAuthorizations.add("apiKey", apiKeyAuth);
@@ -84,17 +94,25 @@
 </head>
 
 <body class="swagger-section">
-<div id='header'>
-  <div class="swagger-ui-wrap">
-    <form id='api_selector'>
-      <input hidden placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/>
-      <div class='input'><input placeholder="Your apiKey" id="input_apiKey" name="apiKey" type="text"/></div>
-      <div class='input'><a id="explore" href="#">Apply my apiKey</a></div>
-    </form>
+<div id="header" class="swagger-ui-wrap" style="display: none">
+  <form id='api_selector'>
+    <input hidden placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/>
+    <div class='input'><input placeholder="Your apiKey" id="input_apiKey" name="apiKey" type="text"/></div>
+    <div class='input'><a id="explore" href="#">Apply my apiKey</a></div>
+  </form>
+  <div id="info">
+    To access the APIs you can apply your own apiKey or
+    simply try the APIs with our demo account creadentials:
+    <br/>
+    <b>apiKey</b> = 4e4a984ad1aa496d89e53f18584de114
+    <br/>
+    <b>fileId</b> = 552feed5241562cb523710be
+    <br/>
+    <br/>
+    Note, POST requests are disabled for the demo account.
   </div>
 </div>
 
 <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 </body>
 </html>
-
